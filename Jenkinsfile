@@ -24,7 +24,7 @@ pipeline {
    }
    stage('DeployArtifact') {
       steps {
-        ansiblePlaybook become: true, credentialsId: 'd28aea44-7963-408d-99b0-cafacde1fd4c', installation: 'Anisble', inventory: '/tmp/hosts_eureka', playbook: '$WORKSPACE/deployArtifact.yaml'
+        ansiblePlaybook become: true, credentialsId: 'd28aea44-7963-408d-99b0-cafacde1fd4c', installation: 'Anisble', inventory: '/tmp/hosts', playbook: '$WORKSPACE/deployArtifact.yaml'
       }
    }
 
