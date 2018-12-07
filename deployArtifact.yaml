@@ -1,6 +1,6 @@
 ---
 -
-  hosts: all
+  hosts: eureka
   tasks:
     -
       name: "uninstall Java JRE rpm from a local file"
