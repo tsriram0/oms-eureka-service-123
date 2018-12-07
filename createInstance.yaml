@@ -17,13 +17,18 @@
                       keypair=Ec2KK
                       count=1
         register: ec2
-
+        
+      - name: Touch a host file
+        local_action: file
+                      path=/tmp/hosts_eureka
+                      state=touch
+                      mode="u=rw,g=r,o=r"
       - name: Add the newly created EC2 instance(s) to the local host group (located inside the directory)
         local_action: lineinfile 
-                      dest="/tmp/hosts"
+                      dest="/tmp/hosts_eureka"
                       state=present
                       regexp={{ item.public_ip }} 
-                      insertafter="[eureka]" line={{ item.public_ip }}
+                      line={{ item.public_ip }}
         with_items: "{{ ec2.instances }}"
 
 
