@@ -19,12 +19,12 @@ pipeline {
     }
     stage('CreateInstance') {
       steps {
-        ansiblePlaybook credentialsId: 'd28aea44-7963-408d-99b0-cafacde1fd4c', installation: 'Anisble', playbook: '$WORKSPACE/createInstance.yaml'
+        ansiblePlaybook credentialsId: 'e9744cfc-988e-47ed-bfa5-bdf8ed2b0fe1', installation: 'Anisble', playbook: '$WORKSPACE/createInstance.yaml'
       }
    }
    stage('DeployArtifact') {
       steps {
-        ansiblePlaybook become: true, credentialsId: 'd28aea44-7963-408d-99b0-cafacde1fd4c', installation: 'Anisble', inventory: '/tmp/hosts_eureka', extras: '-e WORKSPACE=$WORKSPACE', playbook: '$WORKSPACE/deployArtifact.yaml'
+        ansiblePlaybook become: true, credentialsId: 'e9744cfc-988e-47ed-bfa5-bdf8ed2b0fe1', installation: 'Anisble', inventory: '/tmp/hosts_eureka', extras: '-e WORKSPACE=$WORKSPACE', playbook: '$WORKSPACE/deployArtifact.yaml'
       }
    }
     stage('BuildDownstream') {
