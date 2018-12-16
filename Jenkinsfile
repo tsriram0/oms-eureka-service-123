@@ -30,7 +30,7 @@ pipeline {
     stage('BuildDownstream') {
       steps {
         script {
-            env.FILENAME = readFile '/tmp/hosts_eureka'
+            env.FILENAME = (readFile '/tmp/hosts_eureka').split(' ')[0]
          }
          echo "${env.FILENAME}"
         build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
