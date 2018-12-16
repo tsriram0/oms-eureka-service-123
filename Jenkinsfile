@@ -29,6 +29,10 @@ pipeline {
    }
     stage('BuildDownstream') {
       steps {
+        script {
+            env.FILENAME = readFile '/tmp/hosts_eureka'
+         }
+         echo "${env.FILENAME}"
         build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
 
       }
