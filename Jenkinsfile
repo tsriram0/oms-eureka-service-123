@@ -31,9 +31,10 @@ pipeline {
       steps {
         script {
             def ip = readFile '/tmp/hosts_eureka'
-            $env.FILENAME = ip.split(' ')[0]
+            def FILENAME = ip.split(' ')[0]
+            echo "IP Address is "+ FILENAME
          }
-         echo "${env.FILENAME}"
+         
         build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
 
       }
