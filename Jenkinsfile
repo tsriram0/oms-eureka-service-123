@@ -29,7 +29,8 @@ pipeline {
    }
     stage('BuildDownstream') {
       steps {
-        build job: 'OMS_CUSTOMER', parameters: [string(name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}")]
+        build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
+
       }
     }
   }
