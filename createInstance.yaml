@@ -17,7 +17,11 @@
                       keypair=Ec2KK
                       count=1
         register: ec2
-        
+      - name: Touch a host file
+        local_action: file
+                      path=/tmp/hosts_eureka
+                      state=absent
+                      
       - name: Touch a host file
         local_action: file
                       path=/tmp/hosts_eureka
