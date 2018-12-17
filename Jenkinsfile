@@ -3,6 +3,9 @@ pipeline {
   tools { 
         maven 'Maven'
   }
+  environment {
+        EUREKA_IPADDRESS = ""
+    }
   stages {
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace... */
@@ -33,6 +36,7 @@ pipeline {
             def ip = readFile '/tmp/hosts_eureka'
             def FILENAME = ip.split(' ')[0]
             echo "IP Address is "+ FILENAME
+            EUREKA_IPADDRESS = FILENAME
          }
          
         build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
