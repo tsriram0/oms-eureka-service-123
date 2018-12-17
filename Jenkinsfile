@@ -43,26 +43,26 @@ pipeline {
     stage('BuildDownStream') {
         parallel {
           stage('Customer') {
-            step
+            steps
             {
               build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
             }
           }
           stage('ZUUL') {
-            step
+            steps
             {
               build job: 'OMS_ZULU', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
             }
           }
           stage('Product') {
-            step
+            steps
             {
               build job: 'OMS_PRODUCT', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
             }
           }
 
           stage('Order') {
-            step
+            steps
             {
               build job: 'OMS_ORDER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
             }
