@@ -30,7 +30,7 @@ pipeline {
         ansiblePlaybook become: true, credentialsId: 'd28aea44-7963-408d-99b0-cafacde1fd4c', installation: 'Anisble', inventory: '/tmp/hosts_eureka', extras: '-e WORKSPACE=$WORKSPACE -e host_key_checking=no', playbook: '$WORKSPACE/deployArtifact.yaml'
       }
    }
-    stage('BuildDownstream') {
+   stage('GetEurekaIP') {
       steps {
         script {
             def ip = readFile '/tmp/hosts_eureka'
@@ -38,10 +38,36 @@ pipeline {
             echo "IP Address is "+ FILENAME
             EUREKA_IPADDRESS = FILENAME
          }
-         
-        build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
+      }  
+   }
+    stage('BuildDownStream') {
+        parallel {
+          stage('Customer') {
+            step
+            {
+              build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
+            }
+          }
+          stage('ZUUL') {
+            step
+            {
+              build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
+            }
+          }
+          stage('Product') {
+            step
+            {
+              build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
+            }
+          }
 
-      }
+          stage('Order') {
+            step
+            {
+              build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
+            }
+          }
+        }
     }
   }
 }
