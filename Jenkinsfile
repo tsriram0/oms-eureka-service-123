@@ -51,20 +51,20 @@ pipeline {
           stage('ZUUL') {
             step
             {
-              build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
+              build job: 'OMS_ZULU', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
             }
           }
           stage('Product') {
             step
             {
-              build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
+              build job: 'OMS_PRODUCT', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
             }
           }
 
           stage('Order') {
             step
             {
-              build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
+              build job: 'OMS_ORDER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
             }
           }
         }
