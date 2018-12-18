@@ -25,7 +25,7 @@ pipeline {
     }
     stage('Push image') {
       steps {
-        withDockerRegistry([credentialsId: 'docker-hub', url: "https://index.docker.io/v1/"]) {
+        withDockerRegistry([credentialsId: '99767db8-e2b5-41ff-8e38-4b222d972988', url: "https://index.docker.io/v1/"]) {
           sh '/usr/bin/docker push sudhakarlanka540/oms-eureka:latest'
         }
       }
