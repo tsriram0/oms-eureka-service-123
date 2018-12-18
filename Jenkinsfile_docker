@@ -1,0 +1,36 @@
+pipeline {
+  agent any
+  parameters {
+    string(name: 'EUREKA_IPADDRESS', description: 'localhost')
+  }
+  tools { 
+        maven 'Maven'
+  }
+  stages {
+    stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace... */
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'sed -i "s/localhost/$EUREKA_IPADDRESS/g" $WORKSPACE/src/main/resources/application.properties'
+        sh 'mvn -B -DskipTests clean package'
+        sh 'echo $USER'
+        sh 'echo whoami'
+      }
+    }
+    stage('Docker Build') {
+      steps {
+        sh '/usr/bin/docker build -t sudhakarlanka540/oms-eureka:latest .'
+      }
+    }
+    stage('Push image') {
+      steps {
+        withDockerRegistry([credentialsId: 'docker-hub', url: "https://index.docker.io/v1/"]) {
+          sh '/usr/bin/docker push sudhakarlanka540/oms-eureka:latest'
+        }
+      }
+  }
+}
