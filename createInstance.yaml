@@ -14,7 +14,7 @@
                       image=ami-0080e4c5bc078760e
                       wait=true 
                       region=us-east-1
-                      keypair=Ec2KK
+                      keypair=Ec2KK2
                       count=1
         register: ec2
       - name: Touch a host file
