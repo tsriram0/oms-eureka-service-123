@@ -9,7 +9,7 @@
 
       - name: Launch the new EC2 Instance
         local_action: ec2 
-                      group=ans-slave 
+                      group=default
                       instance_type=t2.micro 
                       image=ami-0080e4c5bc078760e
                       wait=true 
