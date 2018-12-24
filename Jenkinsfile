@@ -42,12 +42,12 @@ pipeline {
    }
     stage('BuildDownStream') {
         parallel {
-          stage('Customer') {
-            steps
-            {
-              build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
-            }
-          }
+#          stage('Customer') {
+#            steps
+#            {
+#              build job: 'OMS_CUSTOMER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
+#            }
+#          }
           stage('ZUUL') {
             steps
             {
@@ -61,12 +61,12 @@ pipeline {
             }
           }
 
-          stage('Order') {
-            steps
-            {
-              build job: 'OMS_ORDER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
-            }
-          }
+#          stage('Order') {
+#            steps
+#            {
+#              build job: 'OMS_ORDER', parameters: [[$class: 'StringParameterValue', name: 'EUREKA_IPADDRESS', value: "${EUREKA_IPADDRESS}" ]]
+#            }
+#          }
         }
     }
   }
